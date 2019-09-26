@@ -3,19 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Product;
 
 class HomeController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
     /**
      * Show the application dashboard.
      *
@@ -23,6 +14,15 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $products = Product::query();
+
+
+        if(request()->has('category')){
+            $products = $products->where('category', request()->category);
+        }
+
+        $products = $products->latest()->paginate(4);
+
+        return view('welcome', ['products' => $products]);
     }
 }

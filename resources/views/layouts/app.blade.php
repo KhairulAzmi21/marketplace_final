@@ -9,8 +9,7 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
+
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -36,17 +35,17 @@
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Category</a>
                             <div class="dropdown-menu">
-                              <a class="dropdown-item" href="#">Mobile Phones</a>
-                              <a class="dropdown-item" href="#">Electronics</a>
-                              <a class="dropdown-item" href="#">Furniture</a>
-                              <a class="dropdown-item" href="#">Fashion</a>
+                              <a class="dropdown-item" href="/?category=mobile">Mobile Phones</a>
+                              <a class="dropdown-item" href="/?category=electronics">Electronics</a>
+                              <a class="dropdown-item" href="/?category=furniture">Furniture</a>
+                              <a class="dropdown-item" href="/?category=fashion">Fashion</a>
                             </div>
                          </li>
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Listing</a>
+                            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Product</a>
                             <div class="dropdown-menu">
-                              <a class="dropdown-item" href="#">All Listing</a>
-                              <a class="dropdown-item" href="#">New Listign</a>
+                              <a class="dropdown-item" href="/product">All Product</a>
+                              <a class="dropdown-item" href="/product/create">New Product</a>
                             </div>
                          </li>
                         <li class="nav-item dropdown">
@@ -57,9 +56,13 @@
                          </li>
 
                     </ul>
-                    <form class="form-inline my-2 my-lg-0">
+                    <form class="form-inline my-2 my-lg-0" method="get" action="/product/search">
                       <button class="btn btn-outline-success my-2 my-sm-0 mr-sm-2" type="submit">Search</button>
-                      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                      <input class="form-control mr-sm-2" type="text" name="search" placeholder="Search" aria-label="Search">
+                      @if(request()->category != null)
+                      <input type="hidden" name="category" value="{{ request()->category }}" placeholder="Search" aria-label="Search">
+                      @endif
+
                     </form>
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
@@ -101,6 +104,10 @@
         <main class="py-4">
             @yield('content')
         </main>
+
     </div>
+    <!-- Scripts -->
+    <script src="{{ asset('js/app.js') }}"></script>
+    @yield('scripts')
 </body>
 </html>
