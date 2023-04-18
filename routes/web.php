@@ -10,7 +10,7 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+// cuba cuba
 Route::get('/', 'HomeController@index');
 
 Route::get('/hack/{id}', function($id){
